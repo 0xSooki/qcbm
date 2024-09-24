@@ -70,7 +70,7 @@ class Graph:
         e = 0
   
         # Sort all the edges in 
-        # non-decreasing order of their 
+        # decreasing order of their 
         # weight 
         self.graph = sorted(self.graph, reverse=True,
                             key=lambda item: item[2]) 
@@ -107,7 +107,7 @@ class Graph:
         print("Edges in the constructed MST") 
         for u, v, weight in result: 
             minimumCost += weight 
-            print("%d -- %d == %d" % (u, v, weight)) 
+            print("%d -- %d == %f" % (u, v, weight)) 
         print("Maximum Spanning Tree", minimumCost)
         return result
   
