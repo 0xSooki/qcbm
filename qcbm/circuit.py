@@ -1,4 +1,6 @@
 from qiskit import QuantumCircuit
+from qcbm.chow_liu_tree import get_tree_representation
+from qiskit.circuit.library import EfficientSU2
 from qiskit.primitives import StatevectorSampler
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 
@@ -6,6 +8,14 @@ from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 def create_circ(n, samples):
     qc = QuantumCircuit(n)
     add_entangling_layer(qc, get_tree_representation(samples))
+
+
+def create_qcbm(n, samples):
+    pairs = [[pair[0], pair[1]] for pair in get_tree_representation(samples)]
+    print(len(pairs))
+    circuit = EfficientSU2(n, entanglement=pairs, reps=1)
+    return circuit
+
     qc.measure_all()
     measure_circ(qc,100)
 
