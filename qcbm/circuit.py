@@ -9,20 +9,21 @@ def create_circ(n, samples):
     qc = QuantumCircuit(n)
     add_entangling_layer(qc, get_tree_representation(samples))
     qc.measure_all()
-    measure_circ(qc,100)
+    measure_circ(qc, 100)
 
-def create_qcbm(n, samples):
-    pairs = [[pair[0], pair[1]] for pair in get_tree_representation(samples)]
-    print(len(pairs))
-    circuit = EfficientSU2(n, entanglement=pairs, reps=1)
-    return circuit
 
-    
+def get_entangled_pairs(samples):
+    tree = get_tree_representation(samples)
+    pairs = [(pair[0], pair[1]) for pair in tree]
+    return pairs
+
 
 def add_entangling_layer(qc, tree):
     for pair in tree:
         qc.cx(qc.qubits[pair[0]], qc.qubits[pair[1]])
     print(qc.data)
+
+
 def measure_circ(qc, N):
     sampler = StatevectorSampler()
     result = sampler.run([qc], shots=N).result()
