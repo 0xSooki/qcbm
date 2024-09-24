@@ -25,7 +25,6 @@ def add_entangling_layer(qc, tree):
     print(qc.data)
 def measure_circ(qc, N):
     sampler = StatevectorSampler()
-    pm = generate_preset_pass_manager(optimization_level=1)
     result = sampler.run([qc], shots=N).result()
     data_pub = result[0].data
     bitstrings = data_pub.meas.get_bitstrings()
