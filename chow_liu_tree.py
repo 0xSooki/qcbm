@@ -7,14 +7,13 @@ def get_tree_representation(samples):
 
 def mutual_information(samples):
     g = Graph(samples.shape[1])
-    ws = np.zeros(samples.shape[1], samples.shape[1])
-    for i in range(0,samples.shape[0]):
-        for j in range(0, samples.shape[1]-1):
-            for k in range(j+1, samples[1]):
-                t = mutual_info_score(samples[i,j], samples[i,k])
-                ws[j, k] += t
+    ws = np.zeros([samples.shape[1], samples.shape[1]])
+    for i in range(0,samples.shape[1]-1):
+            for j in range(i+1, samples.shape[1]):
+                t = mutual_info_score(samples[:,i], samples[:,j])
+                ws[i, j] += t
     for j in range(0, samples.shape[1]-1):
-            for k in range(j+1, samples[1]):
+            for k in range(j+1, samples.shape[1]):
                 g.addEdge(j, k, ws[j,k])
     return g
 
