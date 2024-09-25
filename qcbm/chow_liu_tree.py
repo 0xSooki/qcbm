@@ -1,10 +1,18 @@
 from sklearn.metrics import mutual_info_score
 import numpy as np
-
+import networkx as nx
+import matplotlib.pyplot as plt
 
 def get_tree_representation(samples):
     g = mutual_information(samples)
-    return g.KruskalMST()
+    tree = g.KruskalMST()
+    G = nx.Graph()
+    G.add_nodes_from(range(samples.shape[1]))
+    for [x, y , w] in tree:
+        G.add_edge(x, y, weight=w)
+    nx.draw(G, with_labels=True, font_weight='bold')
+    plt.show()
+    return tree
 
 
 def mutual_information(samples):
