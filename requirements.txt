@@ -3,3 +3,6 @@ qiskit
 numpy
 pytest
 matplotlib
+scipy
+qiskit_ibm_runtime
+qiskit_aer
